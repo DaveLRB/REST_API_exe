@@ -1,16 +1,15 @@
-package com.mindera.users;
+package com.mindera.users.entity;
 
-public class User {
+public class UserEntity {
 
     private Long id;
     private String username;
-    private Integer userAge;
     private String password;
 
-    public User(){
+    public UserEntity(){
     }
 
-   public User(String username, String password) {
+   public UserEntity(String username, String password) {
       this.username = username;
       this.password = password;
    }
@@ -39,14 +38,6 @@ public class User {
       this.password = password;
    }
 
-   @Override
-   public String toString() {
-      return "User{" +
-              "id=" + id +
-              ", username='" + username + '\'' +
-              ", password='" + password + '\'' +
-              '}';
-   }
 }
 
 
