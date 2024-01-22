@@ -2,7 +2,7 @@ package com.mindera.users.entity;
 
 public class UserEntity {
 
-    private Long id;
+    private Integer id;
     private String username;
     private String password;
 
@@ -14,11 +14,11 @@ public class UserEntity {
       this.password = password;
    }
 
-   public Long getId() {
+   public Integer getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(Integer id) {
       this.id = id;
    }
 

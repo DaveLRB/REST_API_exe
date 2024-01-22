@@ -10,22 +10,22 @@ import java.util.List;
 @Service
 public class UserService {
 
-   public final UserRepository repository = new UserRepository();
+   private final UserRepository repository = new UserRepository();
 
 
     public List<UserEntity> getUsers() throws IOException {
         return repository.getUsers();
     }
 
-    public void addUser(final UserEntity user) throws IOException {
+    public void addUser(UserEntity user) throws IOException {
         repository.addUser(user);
     }
 
-    public void updateUser(Long userId, UserEntity updateUser) throws IOException {
+    public void updateUser(Integer userId, UserEntity updateUser) throws IOException {
         repository.updateUser(userId,updateUser);
     }
 
-    public void deleteUser(Long userId) throws IOException {
+    public void deleteUser(Integer userId) throws IOException {
         repository.deleteUser(userId);
     }
 }

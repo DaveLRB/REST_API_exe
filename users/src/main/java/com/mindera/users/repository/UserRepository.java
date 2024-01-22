@@ -22,7 +22,7 @@ public class UserRepository {
                 String[] parts = line.split(",");
 
                 if (parts.length == 3) {
-                    Long id = Long.parseLong(parts[0]);
+                    Integer id = Integer.parseInt(parts[0]);
                     String username = parts[1];
                     String password = parts[2];
 
@@ -37,21 +37,21 @@ public class UserRepository {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-
         return users;
     }
 
-    public void addUser(final UserEntity user) throws IOException {
-        try (BufferedWriter write = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+    public void addUser(UserEntity user) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             String line = String.format("%d,%s,%s", user.getId(), user.getUsername(), user.getPassword());
-            write.write(line);
+            writer.write(line);
+            writer.newLine();
             users.add(user);
         }
     }
 
-    public void updateUser(Long userId, UserEntity updatedUser) throws IOException {
+    public void updateUser(Integer userId, UserEntity updatedUser) throws IOException {
 
         List<UserEntity> allUsers = getUsers();
         Optional<UserEntity> userToUpdate = allUsers.stream()
@@ -67,13 +67,14 @@ public class UserRepository {
             for (UserEntity user : allUsers) {
                 String line = String.format("%d,%s,%s", user.getId(), user.getUsername(), user.getPassword());
                 writer.write(line);
+                writer.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    public void deleteUser(Long userId) throws IOException {
+    public void deleteUser(Integer userId) throws IOException {
         List<UserEntity> allUsers = getUsers();
         Optional<UserEntity> userToDelete = allUsers.stream()
                 .filter(user -> user.getId().equals(userId))
@@ -84,10 +85,11 @@ public class UserRepository {
             for (UserEntity user : allUsers) {
                 String line = String.format("%d,%s,%s", user.getId(), user.getUsername(), user.getPassword());
                 writer.write(line);
-
+                writer.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
+
 }

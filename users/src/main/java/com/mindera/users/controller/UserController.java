@@ -26,25 +26,25 @@ public class UserController {
 
 	private final UserService service = new UserService();
 
-
-
     @GetMapping("/get")
 	public List<UserEntity> getUsers() throws IOException {
 		return service.getUsers();
 	}
 	@PostMapping("/add")
-	public void addUser(@RequestBody final UserEntity user) throws IOException {
+	public void addUser(@RequestBody UserEntity user) throws IOException {
 		service.addUser(user);
 	}
-	@PutMapping("/update")
-	public void updateUser(Long userId, UserEntity updatedUser)throws IOException{
+	@PutMapping("/update/{userId}")
+	public void updateUser(@PathVariable Integer userId, @RequestBody UserEntity updatedUser)throws IOException{
 		service.updateUser(userId, updatedUser);
 	}
 
-	@DeleteMapping("/delete")
-	public void delete(Long userId) throws IOException {
+	@DeleteMapping("/delete/{userId}")
+	public void deleteUser(@PathVariable Integer userId) throws IOException {
 		service.deleteUser(userId);
     }
+
+
 
 
 
