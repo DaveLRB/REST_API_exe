@@ -30,6 +30,11 @@ public class UserController {
 	public List<UserEntity> getUsers() throws IOException {
 		return service.getUsers();
 	}
+	@GetMapping("{userId}")
+	public List<UserEntity> getUsersById(@PathVariable Integer userId) throws IOException {
+		return service.getUserById(userId);
+	}
+
 	@PostMapping("/add")
 	public void addUser(@RequestBody UserEntity user) throws IOException {
 		service.addUser(user);
@@ -43,17 +48,6 @@ public class UserController {
 	public void deleteUser(@PathVariable Integer userId) throws IOException {
 		service.deleteUser(userId);
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

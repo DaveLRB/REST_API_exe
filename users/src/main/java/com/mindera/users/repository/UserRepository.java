@@ -2,11 +2,13 @@ package com.mindera.users.repository;
 
 
 import com.mindera.users.entity.UserEntity;
+import org.apache.catalina.User;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserRepository {
 
@@ -40,6 +42,14 @@ public class UserRepository {
             System.out.println(e.getMessage());
         }
         return users;
+    }
+    public List<UserEntity>getUserById(Integer userId)throws IOException{
+        List<UserEntity> allUsers = getUsers();
+        List<UserEntity> userById = allUsers.stream()
+                .filter(user -> user.getId()
+                        .equals(userId))
+                .collect(Collectors.toList());
+        return userById;
     }
 
     public void addUser(UserEntity user) throws IOException {

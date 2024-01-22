@@ -16,6 +16,9 @@ public class UserService {
     public List<UserEntity> getUsers() throws IOException {
         return repository.getUsers();
     }
+    public List<UserEntity> getUserById(Integer userId) throws IOException{
+        return repository.getUserById(userId);
+    }
 
     public void addUser(UserEntity user) throws IOException {
         repository.addUser(user);
