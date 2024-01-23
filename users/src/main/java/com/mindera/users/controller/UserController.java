@@ -43,6 +43,14 @@ public class UserController {
 	public void updateUser(@PathVariable Integer userId, @RequestBody UserEntity updatedUser)throws IOException{
 		service.updateUser(userId, updatedUser);
 	}
+	@PatchMapping("/update/username/{userId}")
+	public void updateUsername(@PathVariable Integer userId, @RequestBody UserEntity updatedUsername)throws IOException{
+		service.updateUsername(userId, updatedUsername);
+	}
+	@PatchMapping("/update/password/{userId}")
+	public void updateUserPassword(@PathVariable Integer userId, @RequestBody UserEntity updatedUserPassword)throws IOException{
+		service.updateUserPassword(userId, updatedUserPassword);
+	}
 
 	@DeleteMapping("/delete/{userId}")
 	public void deleteUser(@PathVariable Integer userId) throws IOException {

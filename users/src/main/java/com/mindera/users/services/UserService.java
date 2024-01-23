@@ -7,16 +7,18 @@ import com.mindera.users.repository.UserRepository;
 
 import java.io.IOException;
 import java.util.List;
+
 @Service
 public class UserService {
 
-   private final UserRepository repository = new UserRepository();
+    private final UserRepository repository = new UserRepository();
 
 
     public List<UserEntity> getUsers() throws IOException {
         return repository.getUsers();
     }
-    public List<UserEntity> getUserById(Integer userId) throws IOException{
+
+    public List<UserEntity> getUserById(Integer userId) throws IOException {
         return repository.getUserById(userId);
     }
 
@@ -25,7 +27,15 @@ public class UserService {
     }
 
     public void updateUser(Integer userId, UserEntity updateUser) throws IOException {
-        repository.updateUser(userId,updateUser);
+        repository.updateUser(userId, updateUser);
+    }
+
+    public void updateUsername(Integer userId, UserEntity updateUsername) throws IOException {
+        repository.updateUsername(userId, updateUsername);
+    }
+
+    public void updateUserPassword(Integer userId, UserEntity updateUserPassword) throws IOException {
+        repository.updateUserPassword(userId, updateUserPassword);
     }
 
     public void deleteUser(Integer userId) throws IOException {

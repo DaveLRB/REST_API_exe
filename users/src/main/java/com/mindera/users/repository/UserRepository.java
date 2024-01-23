@@ -2,7 +2,6 @@ package com.mindera.users.repository;
 
 
 import com.mindera.users.entity.UserEntity;
-import org.apache.catalina.User;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -40,16 +39,23 @@ public class UserRepository {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            throw new IOException("Error reading users from file", e);
         }
         return users;
     }
-    public List<UserEntity>getUserById(Integer userId)throws IOException{
-        List<UserEntity> allUsers = getUsers();
-        List<UserEntity> userById = allUsers.stream()
-                .filter(user -> user.getId()
-                        .equals(userId))
-                .collect(Collectors.toList());
-        return userById;
+
+    public List<UserEntity> getUserById(Integer userId) throws IOException {
+        try {
+            List<UserEntity> allUsers = getUsers();
+            List<UserEntity> userById = allUsers.stream()
+                    .filter(user -> user.getId()
+                            .equals(userId))
+                    .collect(Collectors.toList());
+            return userById;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new IOException("Error reading users from file", e);
+        }
     }
 
     public void addUser(UserEntity user) throws IOException {
@@ -58,6 +64,9 @@ public class UserRepository {
             writer.write(line);
             writer.newLine();
             users.add(user);
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+            throw new IOException("Error while creating user", e);
         }
     }
 
@@ -81,8 +90,55 @@ public class UserRepository {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            throw new IOException("Error updating user", e);
         }
     }
+
+    public void updateUsername(Integer userId, UserEntity updateUsername) throws IOException {
+        List<UserEntity> allUsers = getUsers();
+        Optional<UserEntity> userToUpdate = allUsers.stream()
+                .filter(user -> user.getId().equals(userId))
+                .findFirst();
+
+        userToUpdate.ifPresent(user -> {
+            user.setUsername(updateUsername.getUsername());
+        });
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            for (UserEntity user : allUsers) {
+                String line = String.format("%d,%s,%s", user.getId(), user.getUsername(), user.getPassword());
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new IOException("Error updating username", e);
+        }
+    }
+
+    public void updateUserPassword(Integer userId, UserEntity updatedUserPassword) throws IOException {
+
+        List<UserEntity> allUsers = getUsers();
+        Optional<UserEntity> userToUpdate = allUsers.stream()
+                .filter(user -> user.getId().equals(userId))
+                .findFirst();
+
+        userToUpdate.ifPresent(user -> {
+            user.setPassword(updatedUserPassword.getPassword());
+        });
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            for (UserEntity user : allUsers) {
+                String line = String.format("%d,%s,%s", user.getId(), user.getUsername(), user.getPassword());
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new IOException("Error updating user Password", e);
+        }
+    }
+
 
     public void deleteUser(Integer userId) throws IOException {
         List<UserEntity> allUsers = getUsers();
@@ -99,6 +155,7 @@ public class UserRepository {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            throw new IOException("Error while deleting user", e);
         }
     }
 
