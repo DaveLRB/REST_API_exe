@@ -24,37 +24,41 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-	private final UserService service = new UserService();
+    private final UserService service = new UserService();
 
-    @GetMapping("/get")
-	public List<UserEntity> getUsers() throws IOException {
-		return service.getUsers();
-	}
-	@GetMapping("{userId}")
-	public List<UserEntity> getUsersById(@PathVariable Integer userId) throws IOException {
-		return service.getUserById(userId);
-	}
+    @GetMapping("/getAll")
+    public List<UserEntity> getUsers() throws IOException {
+        return service.getUsers();
+    }
 
-	@PostMapping("/add")
-	public void addUser(@RequestBody UserEntity user) throws IOException {
-		service.addUser(user);
-	}
-	@PutMapping("/update/{userId}")
-	public void updateUser(@PathVariable Integer userId, @RequestBody UserEntity updatedUser)throws IOException{
-		service.updateUser(userId, updatedUser);
-	}
-	@PatchMapping("/update/username/{userId}")
-	public void updateUsername(@PathVariable Integer userId, @RequestBody UserEntity updatedUsername)throws IOException{
-		service.updateUsername(userId, updatedUsername);
-	}
-	@PatchMapping("/update/password/{userId}")
-	public void updateUserPassword(@PathVariable Integer userId, @RequestBody UserEntity updatedUserPassword)throws IOException{
-		service.updateUserPassword(userId, updatedUserPassword);
-	}
+    @GetMapping("/{userId}")
+    public List<UserEntity> getUsersById(@PathVariable Integer userId) throws IOException {
+        return service.getUserById(userId);
+    }
 
-	@DeleteMapping("/delete/{userId}")
-	public void deleteUser(@PathVariable Integer userId) throws IOException {
-		service.deleteUser(userId);
+    @PostMapping("/create")
+    public void addUser(@RequestBody UserEntity user) throws IOException {
+        service.addUser(user);
+    }
+
+    @PutMapping("/{userId}")
+    public void updateUser(@PathVariable Integer userId, @RequestBody UserEntity updatedUser) throws IOException {
+        service.updateUser(userId, updatedUser);
+    }
+
+    @PatchMapping("/username/{userId}")
+    public void updateUsername(@PathVariable Integer userId, @RequestBody UserEntity updatedUsername) throws IOException {
+        service.updateUsername(userId, updatedUsername);
+    }
+
+    @PatchMapping("/password/{userId}")
+    public void updateUserPassword(@PathVariable Integer userId, @RequestBody UserEntity updatedUserPassword) throws IOException {
+        service.updateUserPassword(userId, updatedUserPassword);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable Integer userId) throws IOException {
+        service.deleteUser(userId);
     }
 }
 

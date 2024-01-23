@@ -54,7 +54,7 @@ public class UserRepository {
             return userById;
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            throw new IOException("Error reading users from file", e);
+            throw new IOException("Error reading user from file", e);
         }
     }
 
